@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Button, Alert, Modal, Pressable, TextInput, Image } from 'react-native';
-import FormContact from '../components/FormContact.js';
-
+import CustomModal from '../components/CustomModal.js';
 
 export default function DetailScreen({route, navigation}) { console.log(route.params)
     //const [count, setCount] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
-    const [values, setValues] = useState('test@test')
     useEffect(() => {
         navigation.setOptions({
           title: route.params.firstName,
@@ -25,37 +23,13 @@ export default function DetailScreen({route, navigation}) { console.log(route.pa
         <Text style={styles.modalText}>{route.params?.birthDate}</Text>
         <Text style={styles.modalText}>{route.params?.age}</Text>
         <Text style={styles.modalText}>{route.params?.gender}</Text>
-        <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Veuillez indiquer votre email</Text> 
-            <FormContact values={values} setValues={setValues}/>
-            <View>
-                <Text style={styles.modalText}>{values.email}</Text>
-            </View>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <Pressable
+        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
-      >
+        >
         <Text style={styles.textStyle}>contacter {route.params?.firstName}</Text>
-      </Pressable>
+        </Pressable>
         {/*<Text>{count}</Text>
         <Button title = 'plus 1' onPress ={() => setCount(count + 1)}></Button>*/}
       </View>

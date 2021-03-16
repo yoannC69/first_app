@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Alert, Modal, Pressable, TextInput, Image } from 'react-native';
 import { Formik } from 'formik';
 
+
 export default function FormContact({values, setValues}) {
 return (
     <Formik
