@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Button, Alert, Modal, Pressable, TextInput, Image } from 'react-native';
-import { Formik } from 'formik';
+import FormContact from '../components/FormContact.js';
 
 
 export default function DetailScreen({route, navigation}) { console.log(route.params)
@@ -37,21 +37,7 @@ export default function DetailScreen({route, navigation}) { console.log(route.pa
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Veuillez indiquer votre email</Text> 
-            <Formik
-            initialValues={{ email: '' }}
-            onSubmit={values => {console.log(values);setValues(values)}}
-            >
-                {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <View>
-                    <TextInput
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
-                    value={values.email}
-                    />
-                    <Button onPress={handleSubmit} title="Submit" />
-                </View>
-                )}
-            </Formik>
+            <FormContact values={values} setValues={setValues}/>
             <View>
                 <Text style={styles.modalText}>{values.email}</Text>
             </View>
