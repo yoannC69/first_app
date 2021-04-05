@@ -14,19 +14,19 @@ export default function CustomModal(props) {
         props.setModalVisible(!props.modalVisible);
         }}
         >
-        <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-                <ScrollView>
-                    {props.component}
-                    <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => props.setModalVisible(!props.modalVisible)}
-                    >
-                        <Text style={styles.textStyle}>Hide Modal</Text>
-                    </Pressable>
-                </ScrollView>
+            <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => props.setModalVisible(!props.modalVisible)}
+            >
+                <Text style={styles.closeModal}>X</Text>
+            </Pressable>
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <ScrollView>
+                        {props.component}
+                    </ScrollView>
+                </View>
             </View>
-        </View>
         </Modal>
     )
 }
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         marginTop: 22,
     },
     modalView: {
+        height: '80%',
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
@@ -52,7 +53,22 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
     },
     buttonClose: {
+        height: 40,
+        width: 40,
         backgroundColor: "#2196F3",
+        borderRadius: 900,
+        position: 'absolute',
+        top: 95,
+        right: 70,
+        elevation: 150,
+        zIndex: 150,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
     },
     button: {
         borderRadius: 20,
