@@ -19,6 +19,7 @@ export default function HomeScreen({navigation}) {
         <FlatList
           data={data}
           renderItem={({item}) => <Text onPress={() => navigation.navigate('Detail',item)} style={styles.item}>{item.firstName}</Text>}
+          keyExtractor={item => item.lastName}
         />
       )}
       </View>

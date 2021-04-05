@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Button, Alert, Modal, Pressable, TextInput, Image } from 'react-native';
 import CustomModal from '../components/CustomModal.js';
+import FormContact from '../components/FormContact.js';
 
 export default function DetailScreen({route, navigation}) { console.log(route.params)
     //const [count, setCount] = useState(0);
+    const [values, setValues] = useState('test@test');
     const [modalVisible, setModalVisible] = useState(false);
     useEffect(() => {
         navigation.setOptions({
@@ -23,7 +25,7 @@ export default function DetailScreen({route, navigation}) { console.log(route.pa
         <Text style={styles.modalText}>{route.params?.birthDate}</Text>
         <Text style={styles.modalText}>{route.params?.age}</Text>
         <Text style={styles.modalText}>{route.params?.gender}</Text>
-        <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        <CustomModal component={<FormContact values={values} setValues={setValues}/>} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
         <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
