@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, FlatList } from 'react
 import { Camera } from 'expo-camera';
 import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as MediaLibrary from 'expo-media-library';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -30,6 +31,7 @@ export default function App() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
   return (
     <View style={styles.container}>
       <Camera ref={ref} style={styles.camera} type={type}>
@@ -65,8 +67,14 @@ export default function App() {
         <FlatList
         horizontal={true}
         data={picture}
-        renderItem={({item}) => <Image style={styles.takenPicture} source={item} width= {150} height= {280} resizeMode= {'contain'}/>}
         keyExtractor={item => item.uri}
+        renderItem={({item}) => (
+        <TouchableOpacity
+        onPress={() => {
+          MediaLibrary.saveToLibraryAsync(item.uri)}}>
+        <Image style={styles.takenPicture} source={item} width= {150} height= {280} resizeMode= {'contain'}/>
+        </TouchableOpacity>)}
+        
         />
       )}
       
