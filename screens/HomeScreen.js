@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { FlatList, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { Icon } from 'react-native-elements'
 
 export default function HomeScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
@@ -22,8 +23,15 @@ export default function HomeScreen({navigation}) {
           keyExtractor={item => item.lastName}
         />
       )}
+      <Icon
+      raised
+      name='camera'
+      type='font-awesome'
+      color='blue'
+      onPress={() => navigation.navigate('Photo')} />
       </View>
-      )
+    )
+    
 }
 
 const styles = StyleSheet.create({
