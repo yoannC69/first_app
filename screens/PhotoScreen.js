@@ -4,11 +4,14 @@ import { Camera } from 'expo-camera';
 import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [picture, setPicture] = useState([]);
+  const [showIconCheck, setShowIconCheck] = useState(true);
+  const [showIconCloud, setShowIconCloud] = useState(false);
   const ref = useRef(null)
 
 
@@ -71,8 +74,21 @@ export default function App() {
         renderItem={({item}) => (
         <TouchableOpacity
         onPress={() => {
-          MediaLibrary.saveToLibraryAsync(item.uri)}}>
-        <Image style={styles.takenPicture} source={item} width= {150} height= {280} resizeMode= {'contain'}/>
+          MediaLibrary.saveToLibraryAsync(item.uri).then(() => {
+            setShowIconCheck(false);
+            setShowIconCloud(true);
+          })}}>
+        <Image style={styles.takenPicture} source={item} width= {150} height= {220} resizeMode= {'cover'}/>
+        <Icon
+          style={[styles.cloud, {display: showIconCloud}]}
+          name='cloud-off'
+          type='material'
+          color='red'/>
+        <Icon
+          style={[styles.cloud, {display: showIconCheck}]}
+          name='check'
+          type='material'
+          color='blue'/>
         </TouchableOpacity>)}
         
         />
@@ -105,6 +121,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   takenPicture: {
-    width: 400
-  }
+    width: 400,
+    margin: 10
+  },
+  
+
 });
